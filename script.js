@@ -13,7 +13,7 @@ function getComputerChoice(){
 
 function getHumanChoice(){
     //take input from the user
-    let choice =prompt("Choose your choice\n1. Rock\n2. Paper\n3. Scissors");
+    let choice =prompt("Choose a number:\n1. Rock\n2. Paper\n3. Scissors");
     //if input is 1 return rock
     if(choice==1)
         return "rock";
@@ -45,7 +45,7 @@ function playGame(){
         }
         else if(humanChoice=="paper" && computerChoice=="rock"){
             humanScore++;
-            console.log("You win! Rock beats Paper.");
+            console.log("You win! Paper beats Rock.");
         }
         else if(humanChoice=="paper" && computerChoice=="scissors"){
             computerScore++;
@@ -64,9 +64,9 @@ function playGame(){
     let turns=5;
     while(turns--){
         const humanSelection = getHumanChoice();
-        console.log(humanSelection);
+        console.log("Human: "+humanSelection);
         const computerSelection = getComputerChoice();
-        console.log(computerSelection);
+        console.log("Computer: "+computerSelection);
         playRound(humanSelection,computerSelection);
         console.log(`Human: ${humanScore}    Computer: ${computerScore}`);
     }
