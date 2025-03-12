@@ -3,11 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="header">
+        <h1>Rock Paper Scissors</h1>
+    </div>
 
+    <div class="game">
+        <div class="container">
+            <div class="buttons">
+                <button id="rock">Rock</button>
+                <button id="paper">Paper</button>
+                <button id="scissors">Scissors</button>
+            </div>
+
+            <div class="cards">
+                <div class="card">
+                    <img src="images/white.jpg" alt="Human Choice" height="240px" width="180px" id="humanChoiceImage">
+                    <p id="humanScoreDisplay">Human Score: </p>
+                </div>
+                <div class="card">
+                    <img src="images/white.jpg" alt="Computer Choice" height="240px" width="180px" id="computerChoiceImage">
+                    <p id="computerScoreDisplay">Computer Score: </p>
+                </div>
+            </div>
+
+            <div id="resetButton">
+                <button id="reset">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+
+    </div>
 
     <script src="script.js"></script>
 </body>

@@ -11,71 +11,145 @@ function getComputerChoice(){
     return "scissors";
 }
 
-function getHumanChoice(){
-    //take input from the user
-    let choice =prompt("Choose a number:\n1. Rock\n2. Paper\n3. Scissors");
-    //if input is 1 return rock
-    if(choice==1)
-        return "rock";
-    //if input is 2 return paper
-    if(choice==2)
-        return "paper";
-    //otherwise return scissors
-    return "scissors";
-}
+let humanScore=0;
+let computerScore=0;
 
-function playGame(){
-    //create variables to track computer and human scores with initial values 0
-    let humanScore=0;
-    let computerScore=0;
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
 
-    function playRound(humanChoice, computerChoice){
-        //if both human and computer have same choice then draw
-        if(humanChoice===computerChoice){
-            console.log("Draw! Both are same.");
-        }
-        //increment the score based on the choices
-        else if(humanChoice=="rock" && computerChoice=="scissors"){
-            humanScore++;
-            console.log("You win! Rock beats Scissors.");
-        }
-        else if(humanChoice=="rock" && computerChoice=="paper"){
-            computerScore++;
-            console.log("You lose! Paper beats Rock.");
-        }
-        else if(humanChoice=="paper" && computerChoice=="rock"){
-            humanScore++;
-            console.log("You win! Paper beats Rock.");
-        }
-        else if(humanChoice=="paper" && computerChoice=="scissors"){
-            computerScore++;
-            console.log("You lose! Scissors beat Paper.");
-        }
-        else if(humanChoice=="scissors" && computerChoice=="paper"){
-            humanScore++;
-            console.log("You win! Scissors beat paper.");
-        }
-        else{
-            computerScore++;
-            console.log("You lose! Rock beats Scissors.")
-        }
+const humanScoreDisplay = document.querySelector("#humanScoreDisplay");
+const computerScoreDisplay = document.querySelector("#computerScoreDisplay");
+
+const resetButton = document.querySelector("#reset");
+
+const humanChoiceImage = document.querySelector("#humanChoiceImage");
+const computerChoiceImage = document.querySelector("#computerChoiceImage");
+
+const resultPara = document.createElement("p");
+resultPara.setAttribute("class", "result-text");
+
+const div = document.createElement("div");
+div.setAttribute("class","result");
+
+
+function checkWin(){
+    if(humanScore==5 || computerScore==5){
+        const resetDiv = document.querySelector("#resetButton");
+        const containerDiv = document.querySelector(".container");
+        containerDiv.insertBefore(div,resetDiv);
+        div.appendChild(resultPara);
     }
 
-    let turns=5;
-    while(turns--){
-        const humanSelection = getHumanChoice();
-        console.log("Human: "+humanSelection);
-        const computerSelection = getComputerChoice();
-        console.log("Computer: "+computerSelection);
-        playRound(humanSelection,computerSelection);
-        console.log(`Human: ${humanScore}    Computer: ${computerScore}`);
+    if(humanScore==5){
+        resultPara.textContent="You win";
+        resultPara.style.color= "#16F529";
     }
-    if(humanScore>computerScore)
-        console.log("Human wins!!");
-    else if(humanScore<computerScore)
-        console.log("Computer wins!!");
-    else
-        console.log("It's a draw!!");
+
+    if(computerScore==5){
+        resultPara.textContent="You lose";
+        resultPara.style.color = "red";
+    }
+
 }
 
-playGame();
+rock.addEventListener("click", () => {
+    if(humanScore<5 && computerScore<5){
+        let computerSelection = getComputerChoice();
+        humanChoiceImage.src= "images/Rock.png";
+        computerChoiceImage.src= "images/Rock.png";
+        playRound("rock", computerSelection);
+        humanScoreDisplay.textContent=`Human Score : ${humanScore}`;
+        computerScoreDisplay.textContent=`Computer Score : ${computerScore}`;
+        checkWin();
+    }
+});
+
+paper.addEventListener("click", () => {
+    if(humanScore<5 && computerScore<5){
+        let computerSelection = getComputerChoice();
+        humanChoiceImage.src= "images/Paper.png";
+        computerChoiceImage.src= "images/Paper.png";
+        playRound("paper", computerSelection);
+        humanScoreDisplay.textContent=`Human Score : ${humanScore}`;
+        computerScoreDisplay.textContent=`Computer Score : ${computerScore}`;
+        checkWin();
+    }
+});
+
+scissors.addEventListener("click", () => {
+    if(humanScore<5 && computerScore<5){
+        let computerSelection = getComputerChoice();
+        humanChoiceImage.src= "images/Scissors.png";
+        computerChoiceImage.src= "images/Scissors.png";
+        playRound("scissors", computerSelection);
+        humanScoreDisplay.textContent=`Human Score : ${humanScore}`;
+        computerScoreDisplay.textContent=`Computer Score : ${computerScore}`;
+        checkWin();
+    }
+});
+
+resetButton.addEventListener("click", () => {
+    humanScore=0;
+    computerScore=0;
+    humanChoiceImage.src="images/white.jpg";
+    computerChoiceImage.src= "images/white.jpg";
+    humanScoreDisplay.textContent="Human Score :";
+    computerScoreDisplay.textContent="Computer Score :";
+    resultPara.textContent="";
+    humanChoiceImage.style.border = "2px solid black";
+    computerChoiceImage.style.border = "2px solid black";
+    div.remove();
+})
+
+function playRound(humanChoice, computerChoice){
+    //if both human and computer have same choice then draw
+    if(humanChoice===computerChoice){
+        humanChoiceImage.style.border = "2px solid black";
+        computerChoiceImage.style.border = "2px solid black";
+    }
+    //increment the score based on the choices
+    else if(humanChoice=="rock" && computerChoice=="scissors"){
+        humanScore++;
+        humanChoiceImage.src= "images/Rock.png";
+        computerChoiceImage.src= "images/Scissors.png";
+        humanChoiceImage.style.border = "2px solid #16F529";
+        computerChoiceImage.style.border = "2px solid red";
+    }
+    else if(humanChoice=="rock" && computerChoice=="paper"){
+        computerScore++;
+        humanChoiceImage.src= "images/Rock.png";
+        computerChoiceImage.src= "images/Paper.png";
+        humanChoiceImage.style.border = "2px solid red";
+        computerChoiceImage.style.border = "2px solid #16F529";
+    }
+    else if(humanChoice=="paper" && computerChoice=="rock"){
+        humanScore++;
+        humanChoiceImage.src= "images/Paper.png";
+        computerChoiceImage.src= "images/Rock.png";
+        humanChoiceImage.style.border = "2px solid #16F529";
+        computerChoiceImage.style.border = "2px solid red";
+    }
+    else if(humanChoice=="paper" && computerChoice=="scissors"){
+        computerScore++;
+        humanChoiceImage.src= "images/Paper.png";
+        computerChoiceImage.src= "images/Scissors.png";
+        humanChoiceImage.style.border = "2px solid red";
+        computerChoiceImage.style.border = "2px solid #16F529";
+    }
+    else if(humanChoice=="scissors" && computerChoice=="paper"){
+        humanScore++;
+        humanChoiceImage.src= "images/Scissors.png";
+        computerChoiceImage.src= "images/Paper.png";
+        humanChoiceImage.style.border = "2px solid #16F529";
+        computerChoiceImage.style.border = "2px solid red";
+    }
+    else{
+        computerScore++;
+        humanChoiceImage.src= "images/Scissors.png";
+        computerChoiceImage.src= "images/Rock.png";
+        humanChoiceImage.style.border = "2px solid red";
+        computerChoiceImage.style.border = "2px solid #16F529";
+    }
+    
+}
